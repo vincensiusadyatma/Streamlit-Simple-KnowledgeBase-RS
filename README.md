@@ -5,11 +5,11 @@
 
 2. **Activate the virtual env (gitbash)**
    ```bash
-   source venv/Scripts/activate
+   source .venv/Scripts/activate
    
 3. **Activate the virtual env (cmd)**
    ```bash
-   venv/Scripts/activate.bat
+   .venv/Scripts/activate.bat
 
 3. **Install the requirements**
    ```bash
