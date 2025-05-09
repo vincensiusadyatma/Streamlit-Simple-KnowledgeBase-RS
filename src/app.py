@@ -71,7 +71,7 @@ def hitung_similarity_score(input_data: pd.DataFrame, phoneData: pd.DataFrame) -
 
 # Menambahkan tombol streamlit
 if st.button("Dapatkan Rekomendasi"):
-    st.success("Berikut adalah rekomendasi ponsel berdasarkan preferensi Anda:")
+    st.success("Berikut adalah rekomendasi ponsel berdasarkan preferensi Pengguna:")
     st.dataframe(hitung_similarity_score(user_df, phoneData), use_container_width=True)
     
 
@@ -127,17 +127,17 @@ def find_best_similarity(RecommendationDict : dict) ->dict :
     return best_list
 
 # Menampilkan aturan perhitungan similarity score
-st.markdown("### Aturan Similarity Score")
+st.markdown("### Aturan Similarity Score Constraint Based")
 st.write("""
-1. **Budget**: 1 poin jika perbedaan kurang dari atau sama dengan 50 USD, 0 jika tidak.
-2. **Screen Size**: 1 poin jika perbedaan kurang dari atau sama dengan 0.5 inch, 0 jika tidak.
-3. **Battery Capacity**: 1 poin jika perbedaan kurang dari atau sama dengan 500 mAh, 0 jika tidak.
-4. **Preferred Brand**: 1 poin jika sesuai dengan preferensi pengguna, 0 jika tidak.
+1. **Budget**: 1 poin jika ≤ 700 USD: , 0 jika tidak.
+2. **Ram**: 1 poin jika ≥ 8 GB, 0 jika tidak.
+3. **Storage**: 1 poin jika  ≥ 256 GB, 0 jika tidak.
+4. **Battery Life**: 1 poin jika ≥ 8 hours, 0 jika tidak.
 """)
 
 # Menambahkan tombol untuk rekomendasi
 if st.button("Dapatkan Rekomendasi2"):
-    st.success("Berikut adalah rekomendasi ponsel berdasarkan preferensi Anda:")
+    st.success("Berikut adalah rekomendasi ponsel berdasarkan constraint:")
     st.dataframe(find_best_similarity(hitung_similarity_score_contraint(laptopData)), use_container_width=True)
     
 # footer
