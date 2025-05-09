@@ -1,7 +1,7 @@
 ## How To Use
 1. **Create Virtual ENV**
    ```bash
-   python -m venv venvs
+   python -m venv .venv
 
 2. **Activate the virtual env (gitbash)**
    ```bash
