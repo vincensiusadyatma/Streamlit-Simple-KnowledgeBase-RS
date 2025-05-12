@@ -39,10 +39,9 @@ st.write("""
 """)
 
 
-# Fungsi untuk menghitung similarity score pada case based
+# Fungsi menghitung similarity score pada case based
 def hitung_similarity_score(input_data: pd.DataFrame, phoneData: pd.DataFrame) -> dict:
     scores = {}
-    
     for row in range(len(phoneData)):
         score = 0
         
@@ -62,17 +61,29 @@ def hitung_similarity_score(input_data: pd.DataFrame, phoneData: pd.DataFrame) -
         if input_data.iloc[0]["Preferred Brand"] == phoneData.iloc[row]["Preferred Brand"]:
             score += 1
         
-       
-        scores["Case " + str(row+1)] = score  
+        productName = phoneData.iloc[row]["Recommended Phone"]
+        scores[productName] = score  
     
     return scores
+
+
+def find_best_similarity(RecommendationDict : dict) ->dict :
+    best_value = max(RecommendationDict.values())
+
+    best_list = {}
+
+    for item in RecommendationDict:
+        if(RecommendationDict[item] == best_value):
+            best_list[item] = RecommendationDict[item]
+    
+    return best_list
 
 
 
 # Menambahkan tombol streamlit
 if st.button("Dapatkan Rekomendasi"):
     st.success("Berikut adalah rekomendasi ponsel berdasarkan preferensi Pengguna:")
-    st.dataframe(hitung_similarity_score(user_df, phoneData), use_container_width=True)
+    st.dataframe(find_best_similarity(hitung_similarity_score(user_df, phoneData)), use_container_width=True)
     
 
 
@@ -87,10 +98,9 @@ st.dataframe(laptopData, use_container_width=True)
 
 
 
-# Fungsi untuk menghitung similarity score pada constraint based
+# Fungsi menghitung similarity score pada constraint based
 def hitung_similarity_score_contraint(laptopdata: pd.DataFrame) -> dict:
     scores = {}
-    
     for row in range(len(laptopData)):
         score = 0
         
@@ -110,21 +120,12 @@ def hitung_similarity_score_contraint(laptopdata: pd.DataFrame) -> dict:
         if  laptopData.iloc[row]["Battery Life"] >= 8:
             score += 1
         
-       
-        scores["Laptop" + str(row+1)] = score  
+        productName = laptopData.iloc[row]["Model"]
+        scores[productName] = score  
     
     return scores
 
-def find_best_similarity(RecommendationDict : dict) ->dict :
-    best_value = max(RecommendationDict.values())
 
-    best_list = {}
-
-    for item in RecommendationDict:
-        if(RecommendationDict[item] == best_value):
-            best_list[item] = RecommendationDict[item]
-    
-    return best_list
 
 # Menampilkan aturan perhitungan similarity score
 st.markdown("### Aturan Similarity Score Constraint Based")
